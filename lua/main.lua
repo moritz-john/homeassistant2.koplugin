@@ -51,6 +51,7 @@ function HA2:init()
     self:ensureConfigExists()
 
     local loaded, err = self:loadActions()
+    self.load_error = err
     if not loaded then
         logger.warn("HomeAssistant2: could not load config:", err)
         self.user_actions = {}
@@ -165,6 +166,17 @@ end
 function HA2:buildMenuItems()
     local items = {}
 
+    -- Show an entry with the config loading error, if the latest load failed.
+    if self.load_error then
+        table.insert(items, {
+            text = "\u{EB62} Error loading config",
+            separator = true,
+            callback = function()
+                showMessage("Could not load config:\n\n" .. self.load_error)
+            end,
+        })
+    end
+
     if self.config.settings.show_getting_started == true then
         table.insert(items, {
             text = "\u{EB62} Getting started (long press for QR code)",
@@ -183,7 +195,7 @@ function HA2:buildMenuItems()
         })
     end
 
-    if #items == 0 then
+    if #self.user_actions == 0 then
         table.insert(items, { text = "No actions configured", enabled = false })
     else
         items[#items].separator = true
@@ -195,6 +207,7 @@ function HA2:buildMenuItems()
         keep_menu_open = true,
         callback = function(menu)
             local loaded, err = self:loadActions()
+            self.load_error = err
             if loaded then
                 showMessage("Config reloaded.")
             else
