@@ -8,8 +8,7 @@ return {
         {
             ["meta"] = {
                 ["label"] = "Living Room Lights",
-                ["domain"] = "light",
-                ["service"] = "turn_on",
+                ["action"] = "light.turn_on",
             },
             ["entity_id"] = "all",
             ["brightness_pct"] = 80,
@@ -18,16 +17,14 @@ return {
         {
             ["meta"] = {
                 ["label"] = "Bedroom Lights",
-                ["domain"] = "light",
-                ["service"] = "turn_off",
+                ["action"] = "light.turn_off",
             },
             ["area_id"] = "bedroom",
         },
         {
             ["meta"] = {
                 ["label"] = "Evening Lighting",
-                ["domain"] = "light",
-                ["service"] = "turn_on",
+                ["action"] = "light.turn_on",
             },
             ["area_id"] = { "living_room", "bedroom" },
             ["label_id"] = "ambient_lights",

@@ -285,11 +285,12 @@ function HA2:callService(action)
         return nil, "Action meta must be a table."
     end
 
-    local domain = meta.domain
-    local service = meta.service
-    if type(domain) ~= "string" or not domain:match("^[%w_]+$")
-        or type(service) ~= "string" or not service:match("^[%w_]+$") then
-        return nil, "Invalid domain or service in the action config."
+    local domain, service
+    if type(meta.action) == "string" then
+        domain, service = meta.action:match("^([%w_]+)%.([%w_]+)$")
+    end
+    if not domain then
+        return nil, "meta.action must look like 'light.turn_on' (domain.action)."
     end
 
     local service_data = {}
