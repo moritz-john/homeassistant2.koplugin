@@ -166,10 +166,10 @@ function HA2:buildMenuItems()
     end
 
     -- Add a menu entry for each configured action.
-    for index, action in ipairs(self.actions) do
+    for _, action in ipairs(self.actions) do
         table.insert(items, {
             text = action.meta.label,
-            callback = function() self:runAction(action, index) end,
+            callback = function() self:runAction(action) end,
         })
     end
 
@@ -228,13 +228,13 @@ function HA2:onShowHA2ButtonDialog()
 
     local dialog
     local buttons = {}
-    for index, action in ipairs(self.actions) do
+    for _, action in ipairs(self.actions) do
         table.insert(buttons, { {
             text = action.meta.label,
             align = "left",
             callback = function()
                 UIManager:close(dialog)
-                self:runAction(action, index)
+                self:runAction(action)
             end,
         } })
     end
@@ -253,7 +253,7 @@ end
 function HA2:onActivateHA2Action(index)
     local action = self.actions[index]
     if action then
-        self:runAction(action, index)
+        self:runAction(action)
     else
         -- This should not happen because only configured actions are registered.
         showMessage("No action at position " .. tostring(index) .. ".")
@@ -262,8 +262,8 @@ function HA2:onActivateHA2Action(index)
 end
 
 -- Run an action when online and display whether it succeeded.
-function HA2:runAction(action, index)
-    if NetworkMgr:willRerunWhenOnline(function() self:runAction(action, index) end) then
+function HA2:runAction(action)
+    if NetworkMgr:willRerunWhenOnline(function() self:runAction(action) end) then
         return
     end
 
