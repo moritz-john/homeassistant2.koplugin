@@ -53,7 +53,7 @@ function HA2:init()
     local loaded, err = self:loadActions()
     if not loaded then
         logger.warn("HomeAssistant2: could not load config:", err)
-        self.actions = {}
+        self.user_actions = {}
         self.config = { settings = {} }
         self:registerDispatcherActions()
     end
@@ -93,28 +93,28 @@ function HA2:loadActions()
     end
 
     -- The 'user_actions' section of the config: the list of all configured actions.
-    local actions = config.user_actions
-    if type(actions) ~= "table" then
+    local user_actions = config.user_actions
+    if type(user_actions) ~= "table" then
         return nil, "The 'user_actions' entry must be a table."
     end
-    for index, action in ipairs(actions) do
-        if type(action) ~= "table" then
+    for index, user_action in ipairs(user_actions) do
+        if type(user_action) ~= "table" then
             return nil, string.format("user_actions entry %d must be a table.", index)
         end
-        if type(action.meta) ~= "table" then
+        if type(user_action.meta) ~= "table" then
             return nil, string.format("user_actions entry %d: The 'meta' entry must be a table.", index)
         end
-        if type(action.meta.label) ~= "string" or action.meta.label == "" then
+        if type(user_action.meta.label) ~= "string" or user_action.meta.label == "" then
             return nil, string.format("user_actions entry %d: The 'meta.label' value must be a non-empty string.", index)
         end
-        if type(action.meta.action) ~= "string" or not action.meta.action:match(ACTION_PATTERN) then
+        if type(user_action.meta.action) ~= "string" or not user_action.meta.action:match(ACTION_PATTERN) then
             return nil, string.format(
                 "user_actions entry %d: The 'meta.action' value must look like 'light.turn_on' (domain.action).", index)
         end
     end
 
     self.config = config
-    self.actions = actions
+    self.user_actions = user_actions
     self:registerDispatcherActions()
     return true
 end
@@ -139,13 +139,13 @@ function HA2:registerDispatcherActions()
     table.insert(self.registered_actions, button_dialog_action)
 
     -- Register each HA2 action.
-    for index, action in ipairs(self.actions) do
+    for index, user_action in ipairs(self.user_actions) do
         local name = "ha2_action_" .. index
         Dispatcher:registerAction(name, {
             category = "none",
             event = "ActivateHA2Action",
             arg = index,
-            title = action.meta.label,
+            title = user_action.meta.label,
             general = true,
         })
         table.insert(self.registered_actions, name)
@@ -175,11 +175,11 @@ function HA2:buildMenuItems()
     end
 
     -- Add a menu entry for each configured action.
-    -- 'action' is one entry of the 'self.actions' list.
-    for _, action in ipairs(self.actions) do
+    -- 'user_action' is one entry of the 'self.user_actions' list.
+    for _, user_action in ipairs(self.user_actions) do
         table.insert(items, {
-            text = action.meta.label,
-            callback = function() self:runAction(action) end,
+            text = user_action.meta.label,
+            callback = function() self:runAction(user_action) end,
         })
     end
 
@@ -231,20 +231,20 @@ end
 
 -- Show a dialog listing all available actions.
 function HA2:onShowHA2ButtonDialog()
-    if #self.actions == 0 then
+    if #self.user_actions == 0 then
         showMessage("No actions configured")
         return true
     end
 
     local dialog
     local buttons = {}
-    for _, action in ipairs(self.actions) do
+    for _, user_action in ipairs(self.user_actions) do
         table.insert(buttons, { {
-            text = action.meta.label,
+            text = user_action.meta.label,
             align = "left",
             callback = function()
                 UIManager:close(dialog)
-                self:runAction(action)
+                self:runAction(user_action)
             end,
         } })
     end
@@ -261,9 +261,9 @@ end
 
 -- Run the configured action at the given position in the action list.
 function HA2:onActivateHA2Action(index)
-    local action = self.actions[index]
-    if action then
-        self:runAction(action)
+    local user_action = self.user_actions[index]
+    if user_action then
+        self:runAction(user_action)
     else
         -- This should not happen because only configured actions are registered.
         showMessage("No action at position " .. tostring(index) .. ".")
@@ -272,26 +272,26 @@ function HA2:onActivateHA2Action(index)
 end
 
 -- Run an action when online and display whether it succeeded.
-function HA2:runAction(action)
-    if NetworkMgr:willRerunWhenOnline(function() self:runAction(action) end) then
+function HA2:runAction(user_action)
+    if NetworkMgr:willRerunWhenOnline(function() self:runAction(user_action) end) then
         return
     end
 
-    local ok, err = self:callService(action)
+    local ok, err = self:callService(user_action)
     if ok then
-        showMessage("Executed: " .. action.meta.label, 3)
+        showMessage("Executed: " .. user_action.meta.label, 3)
     else
-        showMessage("Failed: " .. action.meta.label .. "\n\n" .. err)
+        showMessage("Failed: " .. user_action.meta.label .. "\n\n" .. err)
     end
 end
 
--- Build the service data payload from the action entry (everything except 'meta') and send the call.
-function HA2:callService(action)
+-- Build the service data payload from the user_action entry (everything except 'meta') and send the call.
+function HA2:callService(user_action)
     -- The REST API still calls the second part "service"; Home Assistant's UI calls it "action".
-    local domain, service = action.meta.action:match(ACTION_PATTERN)
+    local domain, service = user_action.meta.action:match(ACTION_PATTERN)
 
     local service_data = {}
-    for key, value in pairs(action) do
+    for key, value in pairs(user_action) do
         if key ~= "meta" then
             service_data[key] = value
         end
