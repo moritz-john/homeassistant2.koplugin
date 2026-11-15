@@ -49,16 +49,7 @@ local HA2 = WidgetContainer:extend {
 -- Load the config and register the plugin's main-menu entry.
 function HA2:init()
     self:ensureConfigExists()
-
-    local loaded, err = self:loadActions()
-    self.load_error = err
-    if not loaded then
-        logger.warn("HomeAssistant2: could not load config:", err)
-        self.user_actions = {}
-        self.config = { settings = {} }
-        self:registerDispatcherActions()
-    end
-
+    self:loadActions()
     self.ui.menu:registerToMainMenu(self)
 end
 
@@ -72,8 +63,21 @@ function HA2:ensureConfigExists()
     end
 end
 
--- Load and validate the config before replacing the active settings and actions.
+-- Load the config. On failure, drop all actions and remember the error.
 function HA2:loadActions()
+    local loaded, err = self:readConfig()
+    self.load_error = err
+    if not loaded then
+        logger.warn("HomeAssistant2: could not load config:", err)
+        self.user_actions = {}
+        self.config = { settings = {} }
+        self:registerDispatcherActions()
+    end
+    return loaded, err
+end
+
+-- Read and validate the config file. Only replaces the active config when everything is valid.
+function HA2:readConfig()
     local ok, config = pcall(dofile, CONFIG_FILE)
     if not ok then
         return nil, tostring(config)
@@ -207,11 +211,10 @@ function HA2:buildMenuItems()
         keep_menu_open = true,
         callback = function(menu)
             local loaded, err = self:loadActions()
-            self.load_error = err
             if loaded then
                 showMessage("Config reloaded.")
             else
-                showMessage("Could not reload config:\n" .. err)
+                showMessage("Could not load config:\n\n" .. err)
             end
             menu.item_table = self:buildMenuItems()
             menu:updateItems()
@@ -244,6 +247,10 @@ end
 
 -- Show a dialog listing all available actions.
 function HA2:onShowHA2ButtonDialog()
+    if self.load_error then
+        showMessage("Could not load config:\n\n" .. self.load_error)
+        return true
+    end
     if #self.user_actions == 0 then
         showMessage("No actions configured")
         return true
@@ -286,6 +293,12 @@ end
 
 -- Run an action when online and display whether it succeeded.
 function HA2:runAction(user_action)
+    -- Stale closures (open dialogs, queued offline callbacks) can still call this after a failed reload.
+    if self.load_error then
+        showMessage("Could not run action because config failed to load:\n\n" .. self.load_error)
+        return
+    end
+
     if NetworkMgr:willRerunWhenOnline(function() self:runAction(user_action) end) then
         return
     end
