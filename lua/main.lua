@@ -282,7 +282,7 @@ end
 function HA2:callService(action)
     local meta = action.meta
     if type(meta) ~= "table" then
-        return nil, "Action meta must be a table."
+        return nil, "The 'meta' entry must be a table."
     end
 
     local domain, service
