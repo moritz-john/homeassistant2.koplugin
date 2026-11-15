@@ -38,15 +38,6 @@ local function normalizeUrl(url)
     return (url:gsub("/+$", ""))
 end
 
--- Return the configured label, or generate one if missing.
-local function actionLabel(action, index)
-    local meta = action.meta
-    if type(meta) == "table" and type(meta.label) == "string" and meta.label ~= "" then
-        return meta.label
-    end
-    return "HA2 Action " .. index
-end
-
 local HA2 = WidgetContainer:extend {
     name = "homeassistant2",
     is_doc_only = false,
@@ -105,6 +96,12 @@ function HA2:loadActions()
         if type(action) ~= "table" then
             return nil, string.format("user_actions entry %d must be a table.", index)
         end
+        if type(action.meta) ~= "table" then
+            return nil, string.format("user_actions entry %d: The 'meta' entry must be a table.", index)
+        end
+        if type(action.meta.label) ~= "string" or action.meta.label == "" then
+            return nil, string.format("user_actions entry %d: The 'meta.label' value must be a non-empty string.", index)
+        end
     end
 
     self.config = config
@@ -139,7 +136,7 @@ function HA2:registerDispatcherActions()
             category = "none",
             event = "ActivateHA2Action",
             arg = index,
-            title = actionLabel(action, index),
+            title = action.meta.label,
             general = true,
         })
         table.insert(self.registered_actions, name)
@@ -171,7 +168,7 @@ function HA2:buildMenuItems()
     -- Add a menu entry for each configured action.
     for index, action in ipairs(self.actions) do
         table.insert(items, {
-            text = actionLabel(action, index),
+            text = action.meta.label,
             callback = function() self:runAction(action, index) end,
         })
     end
@@ -233,7 +230,7 @@ function HA2:onShowHA2ButtonDialog()
     local buttons = {}
     for index, action in ipairs(self.actions) do
         table.insert(buttons, { {
-            text = actionLabel(action, index),
+            text = action.meta.label,
             align = "left",
             callback = function()
                 UIManager:close(dialog)
@@ -272,19 +269,17 @@ function HA2:runAction(action, index)
 
     local ok, err = self:callService(action)
     if ok then
-        showMessage("Executed: " .. actionLabel(action, index), 3)
+        showMessage("Executed: " .. action.meta.label, 3)
     else
-        showMessage("Failed: " .. actionLabel(action, index) .. "\n\n" .. err)
+        showMessage("Failed: " .. action.meta.label .. "\n\n" .. err)
     end
 end
 
 -- Validate an action's service metadata, build its payload, and send the call.
 function HA2:callService(action)
     local meta = action.meta
-    if type(meta) ~= "table" then
-        return nil, "The 'meta' entry must be a table."
-    end
 
+    -- The REST API still calls the second part "service"; Home Assistant's UI calls it "action".
     local domain, service
     if type(meta.action) == "string" then
         domain, service = meta.action:match("^([%w_]+)%.([%w_]+)$")
