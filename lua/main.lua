@@ -77,6 +77,7 @@ function HA2:loadActions()
         return nil, "The config file must return a table."
     end
 
+    -- The 'settings' section of the config: URL, token and other plugin options.
     local settings = config.settings
     if type(settings) ~= "table" then
         return nil, "The 'settings' entry must be a table."
@@ -88,6 +89,7 @@ function HA2:loadActions()
         return nil, "The settings.token value must be a string."
     end
 
+    -- The 'user_actions' section of the config: the list of all configured actions.
     local actions = config.user_actions
     if type(actions) ~= "table" then
         return nil, "The 'user_actions' entry must be a table."
@@ -166,6 +168,7 @@ function HA2:buildMenuItems()
     end
 
     -- Add a menu entry for each configured action.
+    -- 'action' is one entry of the 'self.actions' list.
     for _, action in ipairs(self.actions) do
         table.insert(items, {
             text = action.meta.label,
@@ -275,7 +278,7 @@ function HA2:runAction(action)
     end
 end
 
--- Validate an action's service metadata, build its payload, and send the call.
+-- Validate meta.action, build the payload, and send the call.
 function HA2:callService(action)
     local meta = action.meta
 
