@@ -25,7 +25,7 @@ local Screen = Device.screen
 local CONFIG_FILE = DataStorage:getSettingsDir() .. "/homeassistant2_config.lua"
 
 -- Matches "domain.action" (e.g. "light.turn_on") and captures both parts.
-local ACTION_PATTERN = "^([%w_]+)%.([%w_]+)$"
+local DOMAIN_ACTION_PATTERN = "^([%w_]+)%.([%w_]+)$"
 
 -- Display a message in KOReader.
 local function showMessage(text, timeout)
@@ -112,7 +112,7 @@ function HA2:readConfig()
         if type(user_action.meta.label) ~= "string" or user_action.meta.label == "" then
             return nil, string.format("user_actions entry %d: The 'meta.label' value must be a non-empty string.", index)
         end
-        if type(user_action.meta.action) ~= "string" or not user_action.meta.action:match(ACTION_PATTERN) then
+        if type(user_action.meta.action) ~= "string" or not user_action.meta.action:match(DOMAIN_ACTION_PATTERN) then
             return nil, string.format(
                 "user_actions entry %d: The 'meta.action' value must look like 'light.turn_on' (domain.action).", index)
         end
@@ -314,7 +314,7 @@ end
 -- Build the service data payload from the user_action entry (everything except 'meta') and send the call.
 function HA2:callService(user_action)
     -- The REST API still calls the second part "service"; Home Assistant's UI calls it "action".
-    local domain, service = user_action.meta.action:match(ACTION_PATTERN)
+    local domain, service = user_action.meta.action:match(DOMAIN_ACTION_PATTERN)
 
     local service_data = {}
     for key, value in pairs(user_action) do
