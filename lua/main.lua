@@ -63,6 +63,14 @@ function HA2:ensureConfigExists()
     end
 end
 
+-- Delete the config file when the user removes the plugin and ticks "Also delete plugin settings".
+function HA2:deletePluginSettings()
+    local ok, err = os.remove(CONFIG_FILE)
+    if not ok then
+        logger.warn("HomeAssistant2: could not delete config:", err)
+    end
+end
+
 -- Load the config; on failure, clear user_actions and store the error.
 function HA2:loadActions()
     local loaded, err = self:readConfig()
