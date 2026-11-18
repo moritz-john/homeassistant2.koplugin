@@ -1,6 +1,6 @@
 --[[--
 Home Assistant 2 plugin for KOReader.
-Sends service calls to the Home Assistant REST API using configured controls.
+Sends service calls to the Home Assistant REST API using configured actions.
 ]]
 
 local DataStorage = require("datastorage")
@@ -63,7 +63,7 @@ function HA2:ensureConfigExists()
     end
 end
 
--- Load the config. On failure, drop all actions and remember the error.
+-- Load the config; on failure, clear user_actions and store the error.
 function HA2:loadActions()
     local loaded, err = self:readConfig()
     self.load_error = err
@@ -173,7 +173,7 @@ function HA2:buildMenuItems()
     -- Show an entry with the config loading error, if the latest load failed.
     if self.load_error then
         table.insert(items, {
-            text = "\u{EB62} Error loading config",
+            text = "\u{E859} Configuration Error (tap to see details)",
             separator = true,
             callback = function()
                 showMessage("Could not load config:\n\n" .. self.load_error)
@@ -183,7 +183,7 @@ function HA2:buildMenuItems()
 
     if self.config.settings.show_getting_started == true then
         table.insert(items, {
-            text = "\u{EB62} Getting started (long press for QR code)",
+            text = "\u{EB62} Getting started (hold to show QR code)",
             separator = true,
             callback = function() self:showGettingStarted() end,
             hold_callback = function() self:showRepositoryQr() end,
@@ -191,7 +191,6 @@ function HA2:buildMenuItems()
     end
 
     -- Add a menu entry for each configured action.
-    -- 'user_action' is one entry of the 'self.user_actions' list.
     for _, user_action in ipairs(self.user_actions) do
         table.insert(items, {
             text = user_action.meta.label,
@@ -206,7 +205,7 @@ function HA2:buildMenuItems()
     end
 
     table.insert(items, {
-        text = "\u{EB4F} Reload configuration",
+        text = "\u{EB4F} Reload Configuration",
         separator = true,
         keep_menu_open = true,
         callback = function(menu)
@@ -245,7 +244,7 @@ function HA2:showRepositoryQr()
     })
 end
 
--- Show a dialog listing all available actions.
+-- Show all configured actions in a dialog, or the config error if loading failed.
 function HA2:onShowHA2ButtonDialog()
     if self.load_error then
         showMessage("Could not load config:\n\n" .. self.load_error)
@@ -366,7 +365,7 @@ function HA2:request(method, path, service_data)
         return nil, tostring(code)
     end
 
-    -- Return an error unless the status is 200 or 201 (success codes).
+    -- Treat only HTTP 200 and 201 as successful responses.
     if type(code) ~= "number" or (code ~= 200 and code ~= 201) then
         return nil, string.format("HTTP %s: %s", tostring(code), table.concat(response_chunks):sub(1, 300))
     end
