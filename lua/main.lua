@@ -93,7 +93,7 @@ function HA2:readConfig()
         return nil, "The config file must return a table."
     end
 
-    -- The 'settings' section of the config: URL, token and other plugin options.
+    -- The 'settings' section of the config:
     local settings = config.settings
     if type(settings) ~= "table" then
         return nil, "The 'settings' entry must be a table."
@@ -105,7 +105,7 @@ function HA2:readConfig()
         return nil, "The settings.token value must be a string."
     end
 
-    -- The 'user_actions' section of the config: the list of all configured actions.
+    -- The 'user_actions' section of the config:
     local user_actions = config.user_actions
     if type(user_actions) ~= "table" then
         return nil, "The 'user_actions' entry must be a table."
