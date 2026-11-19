@@ -114,15 +114,15 @@ function HA2:readConfig()
         if type(user_action) ~= "table" then
             return nil, string.format("user_actions entry %d must be a table.", index)
         end
-        if type(user_action.meta) ~= "table" then
-            return nil, string.format("user_actions entry %d: The 'meta' entry must be a table.", index)
+        if type(user_action.label) ~= "string" or user_action.label == "" then
+            return nil, string.format("user_actions entry %d: The 'label' value must be a non-empty string.", index)
         end
-        if type(user_action.meta.label) ~= "string" or user_action.meta.label == "" then
-            return nil, string.format("user_actions entry %d: The 'meta.label' value must be a non-empty string.", index)
-        end
-        if type(user_action.meta.action) ~= "string" or not user_action.meta.action:match(DOMAIN_ACTION_PATTERN) then
+        if type(user_action.action) ~= "string" or not user_action.action:match(DOMAIN_ACTION_PATTERN) then
             return nil, string.format(
-                "user_actions entry %d: The 'meta.action' value must look like 'light.turn_on' (domain.action).", index)
+                "user_actions entry %d: The 'action' value must look like 'light.turn_on' (domain.action).", index)
+        end
+        if user_action.action_data ~= nil and type(user_action.action_data) ~= "table" then
+            return nil, string.format("user_actions entry %d: The 'action_data' entry must be a table.", index)
         end
     end
 
@@ -158,7 +158,7 @@ function HA2:registerDispatcherActions()
             category = "none",
             event = "ActivateHA2Action",
             arg = index,
-            title = user_action.meta.label,
+            title = user_action.label,
             general = true,
         })
         table.insert(self.registered_actions, name)
@@ -201,7 +201,7 @@ function HA2:buildMenuItems()
     -- Add a menu entry for each configured action.
     for _, user_action in ipairs(self.user_actions) do
         table.insert(items, {
-            text = user_action.meta.label,
+            text = user_action.label,
             callback = function() self:runAction(user_action) end,
         })
     end
@@ -267,7 +267,7 @@ function HA2:onShowHA2ButtonDialog()
     local buttons = {}
     for _, user_action in ipairs(self.user_actions) do
         table.insert(buttons, { {
-            text = user_action.meta.label,
+            text = user_action.label,
             align = "left",
             callback = function()
                 UIManager:close(dialog)
@@ -312,30 +312,23 @@ function HA2:runAction(user_action)
 
     local ok, err = self:callService(user_action)
     if ok then
-        showMessage("Executed: " .. user_action.meta.label, 3)
+        showMessage("Executed: " .. user_action.label, 3)
     else
-        showMessage("Failed: " .. user_action.meta.label .. "\n\n" .. err)
+        showMessage("Failed: " .. user_action.label .. "\n\n" .. err)
     end
 end
 
--- Build the service data payload from the user_action entry (everything except 'meta') and send the call.
+-- Call the configured action, sending 'action_data' as the request body.
 function HA2:callService(user_action)
     -- The REST API still calls the second part "service"; Home Assistant's UI calls it "action".
-    local domain, service = user_action.meta.action:match(DOMAIN_ACTION_PATTERN)
-
-    local service_data = {}
-    for key, value in pairs(user_action) do
-        if key ~= "meta" then
-            service_data[key] = value
-        end
-    end
+    local domain, service = user_action.action:match(DOMAIN_ACTION_PATTERN)
 
     local path = string.format("/api/services/%s/%s", domain, service)
-    return self:request("POST", path, service_data)
+    return self:request("POST", path, user_action.action_data or {})
 end
 
 -- Send a Home Assistant REST request and return its result.
-function HA2:request(method, path, service_data)
+function HA2:request(method, path, action_data)
     local settings = self.config.settings
     local base_url = normalizeUrl(settings.url)
     local token = util.trim(settings.token or "")
@@ -343,10 +336,10 @@ function HA2:request(method, path, service_data)
         return nil, "Set the Home Assistant URL and token in 'homeassistant2_config.lua'."
     end
 
-    -- Encode empty service data as {} and fail if JSON encoding is not possible.
-    local request_body = service_data and (next(service_data) == nil and "{}" or JSON.encode(service_data))
-    if service_data and not request_body then
-        return nil, "Could not encode service data."
+    -- Encode empty action data as {} and fail if JSON encoding is not possible.
+    local request_body = action_data and (next(action_data) == nil and "{}" or JSON.encode(action_data))
+    if action_data and not request_body then
+        return nil, "Could not encode action data."
     end
 
     local response_chunks = {}
