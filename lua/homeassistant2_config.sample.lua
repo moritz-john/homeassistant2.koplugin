@@ -6,23 +6,14 @@ return {
     },
     user_actions = {
         {
-            label = "Living Room Lights",
-            action = "light.turn_on",
-            action_data = {
-                entity_id = "all",
-                brightness_pct = 80,
-                transition = 2,
-            },
-        },
-        {
-            label = "Bedroom Lights",
+            label = "\u{EA2D} All Lights OFF",
             action = "light.turn_off",
             action_data = {
-                area_id = "bedroom",
+                entity_id = "all",
             },
         },
         {
-            label = "Evening Lighting",
+            label = "\u{E3E2} Evening Lighting",
             action = "light.turn_on",
             action_data = {
                 area_id = { "living_room", "bedroom" },
@@ -33,12 +24,20 @@ return {
             },
         },
         {
-            label = "Play a Jellyfin Movie",
-            action = "media_player.play_media",
+            label = "\u{E20A} Heat Living Room to 22°C",
+            action = "climate.set_temperature",
             action_data = {
-                entity_id = "media_player.living_room",
-                media_content_id = "YOUR_JELLYFIN_MOVIE_ID",
-                media_content_type = "movie",
+                entity_id = "climate.living_room",
+                hvac_mode = "heat",
+                temperature = 22,
+            },
+        },
+        {
+            label = "\u{F0DC} Set Desk Height to 80cm",
+            action = "number.set_value",
+            action_data = {
+                entity_id = "number.upsy_desky_target_desk_height",
+                value = 80,
             },
         },
     },
