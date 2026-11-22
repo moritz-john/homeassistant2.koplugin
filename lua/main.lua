@@ -146,7 +146,7 @@ function HA2:registerDispatcherActions()
     Dispatcher:registerAction(button_dialog_action, {
         category = "none",
         event = "ShowHA2ButtonDialog",
-        title = "Home Assistant 2 actions",
+        title = "Home Assistant 2: show all actions",
         general = true,
     })
     table.insert(self.registered_actions, button_dialog_action)
@@ -160,6 +160,7 @@ function HA2:registerDispatcherActions()
             arg = index,
             title = user_action.label,
             general = true,
+            separator = (index == #self.user_actions), -- add separator after last action
         })
         table.insert(self.registered_actions, name)
     end
@@ -277,7 +278,7 @@ function HA2:onShowHA2ButtonDialog()
     end
 
     dialog = ButtonDialog:new {
-        title = "Home Assistant:",
+        title = "Home Assistant 2:",
         title_align = "center",
         width_factor = 0.6,
         buttons = buttons,
