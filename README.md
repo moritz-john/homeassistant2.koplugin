@@ -11,7 +11,7 @@ If you are currently using `homeassistant.koplugin` (V1), read [Why `homeassista
 
 ## Installation
 
-1. Download the latest release of the plugin and unzip it.
+1. Download the [latest release](https://github.com/moritz-john/homeassistant2.koplugin/releases) of the plugin and unzip it.
 2. Copy the `homeassistant2.koplugin` folder to `koreader/plugins/` on your e-reader.
 3. Restart KOReader. A sample configuration file is created at `koreader/settings/homeassistant2_config.lua`.
 
