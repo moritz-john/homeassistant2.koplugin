@@ -1,4 +1,4 @@
-# Home Assistant 2
+# homeassistant2.koplugin
 
 <p align="center">
 <img src="assets/ha2_screenshot.png" />
