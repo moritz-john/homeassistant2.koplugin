@@ -1,0 +1,35 @@
+name: Create ZIP & Release
+
+on: 
+  workflow_dispatch:
+    inputs:
+      version: 
+        description: "Version"
+        default: "v26.01.01"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  zip-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7.0.1
+
+      - name: Prepare folder structure
+        run: |
+          mkdir -p homeassistant2.koplugin
+          cp -R lua/. homeassistant2.koplugin/
+
+      - name: Create ZIP archive
+        run: zip -r homeassistant2.koplugin.zip homeassistant2.koplugin
+
+      - name: Upload Release
+        uses: ncipollo/release-action@v1.21.0
+        with:
+          artifacts: "homeassistant2.koplugin.zip"
+          name: ${{ github.event.inputs.version }} homeassistant2.koplugin.zip
+          tag: ${{ github.event.inputs.version }}
+          token: ${{ secrets.GITHUB_TOKEN }}
