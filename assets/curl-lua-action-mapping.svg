@@ -1,0 +1,110 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 584" width="1080" height="584" role="img" aria-labelledby="t d" xmlns:c2pa="http://c2pa.org/manifest">
+  <title id="t">Config syntax mirrors the Home Assistant REST API</title>
+  <desc id="d">Color-coded mapping of the headers, URL and JSON body of a Home Assistant REST API curl command to the settings and a user action (an action_data table) in the Lua config.</desc>
+  <style>
+    svg{--fg:#ececec;--muted:#c9c9cd;--panel:#3a3b3e;--border:#7d7f85;--url:#e1e1e4;--tok:#e1e1e4;--lgt:#98d0cd;--trn:#ec919a;--area:#8fb3dc;--lbl:#c89fc6;--bri:#eba984;--kel:#b3d29a;--tra:#e69cc4}
+    text{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13px;fill:var(--fg);white-space:pre}
+    .h{font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:15px;font-weight:600}
+    .s{font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:11.5px;fill:var(--muted);font-style:italic}
+    .panel{fill:var(--panel);stroke:var(--border);stroke-width:1.5}
+    .url{fill:var(--url)}.tok{fill:var(--tok)}.lgt{fill:var(--lgt)}.trn{fill:var(--trn)}.area{fill:var(--area)}.lbl{fill:var(--lbl)}.bri{fill:var(--bri)}.kel{fill:var(--kel)}.tra{fill:var(--tra)}
+    .k{font-weight:700}.m{fill:var(--muted)}
+    .bd{fill-opacity:.26}
+    .url.bd,.tok.bd{fill:none;stroke:#bcbec4;stroke-opacity:.85;stroke-width:1}
+    .ln{fill:none;stroke-width:2}
+    .l-url{stroke:#94969c}.l-tok{stroke:#94969c}.l-lgt{stroke:var(--lgt)}.l-trn{stroke:var(--trn)}.l-area{stroke:var(--area)}.l-lbl{stroke:var(--lbl)}.l-bri{stroke:var(--bri)}.l-kel{stroke:var(--kel)}.l-tra{stroke:var(--tra)}
+  </style>
+  <defs>
+    <linearGradient id="actgrad" gradientUnits="userSpaceOnUse" x1="568" y1="0" x2="390.7" y2="0">
+      <stop offset="0" style="stop-color:var(--trn)"/>
+      <stop offset="1" style="stop-color:var(--lgt)"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1080" height="584" rx="12" fill="#1b1b1d"/>
+  <text x="540" y="40" text-anchor="middle" style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:22px;font-weight:700;white-space:normal">Config syntax mirrors the Home Assistant REST API</text>
+  <text x="540" y="64" text-anchor="middle" style="font-family:system-ui,-apple-system,Segoe UI,sans-serif;font-size:13px;white-space:normal;fill:var(--muted)">The keys in the Lua action_data table map one-to-one to the JSON body of the curl command.</text>
+  <g transform="translate(0,60)">
+  <text class="h" x="20" y="34">curl command</text>
+  <text class="h" x="560" y="34">Lua config</text>
+  <rect class="panel" x="20" y="132" width="460" height="272" rx="8"/>
+  <rect class="panel" x="560" y="52" width="500" height="432" rx="8"/>
+
+  <rect class="tok bd" x="568" y="93" width="484" height="21" rx="3"/>
+  <rect class="url bd" x="568" y="117" width="484" height="21" rx="3"/>
+  <rect class="area bd" x="568" y="285" width="484" height="21" rx="3"/>
+  <rect class="lbl bd" x="568" y="309" width="484" height="21" rx="3"/>
+  <rect class="bri bd" x="568" y="333" width="484" height="21" rx="3"/>
+  <rect class="kel bd" x="568" y="357" width="484" height="21" rx="3"/>
+  <rect class="tra bd" x="568" y="381" width="484" height="21" rx="3"/>
+  <rect x="568" y="213" width="484" height="21" rx="3" fill="none" stroke="var(--muted)" stroke-dasharray="4 3" stroke-opacity=".6"/>
+  <clipPath id="actrow"><rect x="683.2" y="237" width="105.4" height="21" rx="3"/></clipPath>
+  <g clip-path="url(#actrow)">
+    <rect class="lgt bd" x="683.2" y="237" width="44.9" height="21"/>
+    <rect class="trn bd" x="728.1" y="237" width="60.5" height="21"/>
+  </g>
+  <rect x="568" y="237" width="484" height="21" rx="3" fill="none" stroke="#bcbec4" stroke-opacity=".85" stroke-width="1"/>
+  <rect class="tok bd" x="28" y="157" width="444" height="21" rx="3"/>
+  <clipPath id="urlrow"><rect x="28" y="205" width="444" height="21" rx="3"/></clipPath>
+  <g clip-path="url(#urlrow)">
+    <rect class="url bd" x="28" y="205" width="317.8" height="21" style="stroke:none"/>
+    <rect class="lgt bd" x="345.8" y="205" width="44.9" height="21"/>
+    <rect class="trn bd" x="390.7" y="205" width="60.5" height="21"/>
+    <rect class="url bd" x="451.2" y="205" width="20.8" height="21" style="stroke:none"/>
+  </g>
+  <rect x="28" y="205" width="444" height="21" rx="3" fill="none" stroke="#bcbec4" stroke-opacity=".85" stroke-width="1"/>
+  <rect class="area bd" x="28" y="253" width="444" height="21" rx="3"/>
+  <rect class="lbl bd" x="28" y="277" width="444" height="21" rx="3"/>
+  <rect class="bri bd" x="28" y="301" width="444" height="21" rx="3"/>
+  <rect class="kel bd" x="28" y="325" width="444" height="21" rx="3"/>
+  <rect class="tra bd" x="28" y="349" width="444" height="21" rx="3"/>
+  <path class="ln l-tok" d="M568 103.5 C524 103.5 524 167.5 480 167.5"/>
+  <circle fill="#94969c" cx="568.0" cy="103.5" r="3"/><circle fill="#94969c" cx="480.0" cy="167.5" r="3"/>
+  <path class="ln l-url" d="M568 127.5 C524 127.5 524 215.5 480 215.5"/>
+  <circle fill="#94969c" cx="568.0" cy="127.5" r="3"/><circle fill="#94969c" cx="480.0" cy="215.5" r="3"/>
+  <path class="ln l-area" d="M568 295.5 C524 295.5 524 263.5 480 263.5"/>
+  <circle fill="var(--area)" cx="568.0" cy="295.5" r="3"/><circle fill="var(--area)" cx="480.0" cy="263.5" r="3"/>
+  <path class="ln l-lbl" d="M568 319.5 C524 319.5 524 287.5 480 287.5"/>
+  <circle fill="var(--lbl)" cx="568.0" cy="319.5" r="3"/><circle fill="var(--lbl)" cx="480.0" cy="287.5" r="3"/>
+  <path class="ln l-bri" d="M568 343.5 C524 343.5 524 311.5 480 311.5"/>
+  <circle fill="var(--bri)" cx="568.0" cy="343.5" r="3"/><circle fill="var(--bri)" cx="480.0" cy="311.5" r="3"/>
+  <path class="ln l-kel" d="M568 367.5 C524 367.5 524 335.5 480 335.5"/>
+  <circle fill="var(--kel)" cx="568.0" cy="367.5" r="3"/><circle fill="var(--kel)" cx="480.0" cy="335.5" r="3"/>
+  <path class="ln l-tra" d="M568 391.5 C524 391.5 524 359.5 480 359.5"/>
+  <circle fill="var(--tra)" cx="568.0" cy="391.5" r="3"/><circle fill="var(--tra)" cx="480.0" cy="359.5" r="3"/>
+  <path class="ln" stroke="url(#actgrad)" d="M568.0 247.5 L398.7 247.5 Q390.7 247.5 390.7 239.5 L390.7 226"/>
+  <circle fill="url(#actgrad)" cx="568" cy="247.5" r="3"/><circle fill="url(#actgrad)" cx="390.7" cy="226" r="3"/>
+  <text x="576" y="84"><tspan class="url k">settings</tspan> = {</text>
+  <text x="576" y="108">  <tspan class="tok k">token</tspan> = <tspan class="tok">"YOUR_LONG_LIVED_ACCESS_TOKEN"</tspan>,</text>
+  <text x="576" y="132">  <tspan class="url k">url</tspan>   = <tspan class="url">"http://192.168.10.12:8123"</tspan>,</text>
+  <text x="576" y="156">},</text>
+  <text x="576" y="180">user_actions = {</text>
+  <text x="576" y="204">  {</text>
+  <text x="576" y="228">    label  = "Evening Lighting",</text>
+  <text x="576" y="252">    action = "<tspan class="lgt k">light</tspan>.<tspan class="trn k">turn_on</tspan>",</text>
+  <text x="576" y="276">    action_data = {</text>
+  <text x="576" y="300">      <tspan class="area k">area_id</tspan>           = <tspan class="area">{ "living_room", "bedroom" }</tspan>,</text>
+  <text x="576" y="324">      <tspan class="lbl k">label_id</tspan>          = <tspan class="lbl">"ambient_lights"</tspan>,</text>
+  <text x="576" y="348">      <tspan class="bri k">brightness_pct</tspan>    = <tspan class="bri">30</tspan>,</text>
+  <text x="576" y="372">      <tspan class="kel k">color_temp_kelvin</tspan> = <tspan class="kel">2700</tspan>,</text>
+  <text x="576" y="396">      <tspan class="tra k">transition</tspan>        = <tspan class="tra">5</tspan></text>
+  <text x="576" y="420">    }</text>
+  <text x="576" y="444">  },</text>
+  <text x="576" y="468">},</text>
+  <text class="s" x="1044" y="228" text-anchor="end">✕ not sent</text>
+  <text class="s" x="1044" y="252" text-anchor="end">← URL path</text>
+  <text class="s" x="1044" y="276" text-anchor="end">← JSON body</text>
+  <text x="28" y="148"><tspan class="m">curl -X </tspan><tspan class="m k">POST</tspan><tspan class="m"> \</tspan></text>
+  <text x="28" y="172"><tspan class="m">  -H "Authorization: Bearer </tspan><tspan class="tok k" x="246.4">&lt;token&gt;</tspan><tspan class="m">" \</tspan></text>
+  <text x="28" y="196"><tspan class="m">  -H "Content-Type: application/json" \</tspan></text>
+  <text x="28" y="220"><tspan x="43.6" class="url k">http://192.168.10.12:8123</tspan><tspan x="238.6" class="m">/api/services/</tspan><tspan x="347.8" class="lgt k">light</tspan><tspan x="386.8" class="m">/</tspan><tspan x="394.6" class="trn k">turn_on</tspan><tspan x="449.2" class="m"> \</tspan></text>
+  <text x="28" y="244"><tspan class="m">  -d '{</tspan></text>
+  <text x="28" y="268">    <tspan class="area k">"area_id"</tspan>: <tspan class="area">["living_room", "bedroom"]</tspan>,</text>
+  <text x="28" y="292">    <tspan class="lbl k">"label_id"</tspan>: <tspan class="lbl">"ambient_lights"</tspan>,</text>
+  <text x="28" y="316">    <tspan class="bri k">"brightness_pct"</tspan>: <tspan class="bri">30</tspan>,</text>
+  <text x="28" y="340">    <tspan class="kel k">"color_temp_kelvin"</tspan>: <tspan class="kel">2700</tspan>,</text>
+  <text x="28" y="364">    <tspan class="tra k">"transition"</tspan>: <tspan class="tra">5</tspan></text>
+  <text x="28" y="388"><tspan class="m">  }'</tspan></text>
+  <text class="s" x="20" y="510">Same color = same value on both sides.</text>
+  </g>
+<metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTo1NWU2YWQxMC0zNzUzLTQxYjgtYjBjYS0yZDFjNzVlZGJhYzAAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaAJA1NQ0WLVGXvKpXCIou9UAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDo4MmZjMzQ2ZC0zNzQyLTRjZTUtYjJiYS04MTRlOTgxYjg0YTJscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNozUy27Dh9BLd/jNJYZoxj7wAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggLPZK16TuC0KtIjS9+uxi/1qvdZkXxm9yw21XAvS5kDqkZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaDT1CqJgTS8iCvaCXEO9kXMAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIO+2cNujc8NpO90+TzDgGcymRXkiUh0LXGijpAJkJs1yZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GSS9Zmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjU1ZTZhZDEwLTM3NTMtNDFiOC1iMGNhLTJkMWM3NWVkYmFjMC9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjhmNzc2NGNhLTdiYjItNDQ4Yy1hNzhhLWU0ZTc3ZWEwNGNiMnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAs9krXpO4LQq0iNL367GL/Wq91mRfGb3LDbVcC9LmQOqJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggJNk2/LeNLEQaX57Kd8H4gxWTj8FebBWF66H2Ys/UP0miY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFgg7a196aXxT83ccn6/63IUynjZ7tgv6qyYJ4FtJVQ3bNd0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQM0I21bo2n/rZqu2iyXHjpBNSDY0UEBVZnGKJgVZTEcdUq+rcnh/BbKxLgVSOVdsHT4RhKgXzBm6DIKiM5FuOhk=</c2pa:manifest></metadata></svg>
