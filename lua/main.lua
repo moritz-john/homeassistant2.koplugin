@@ -237,8 +237,8 @@ function HA2:showGettingStarted()
     showMessage(
         "From your computer:\n\n"
         .. "\u{EAA5} Edit 'koreader/settings/homeassistant2_config.lua'\n\n"
-        .. "\u{EAA8} Configure your URL, token and actions, then reload the config.\n\n"
-        .. "\u{EAAB} Set show_getting_started = false.\n\n"
+        .. "\u{EAA8} Configure your URL, token, actions and set show_getting_started to false\n\n"
+        .. "\u{EAAB} Reload your configuration\n\n"
         .. "\u{E885} Full documentation: https://github.com/moritz-john/homeassistant2.koplugin"
     )
 end
