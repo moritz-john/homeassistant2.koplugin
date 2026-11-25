@@ -101,7 +101,7 @@ This is a rewrite of [homeassistant.koplugin](https://github.com/moritz-john/hom
 
 V1 mirrors Home Assistant's YAML action syntax (`action`, `target`, `data`). HA2 instead maps directly to the Home Assistant REST API: `action_data` is a Lua table that corresponds 1:1 to the [JSON request body](https://developers.home-assistant.io/docs/api/rest/#post-apiservicesdomainservice).
 
-HA2 also validates the configuration when loading and, if something is wrong, shows the error in the menu. Changes take effect through **Reload Configuration**, without restarting KOReader.
+HA2 also brings much better config error handling. The configuration is validated on load, and any problems are shown right in the menu, so you can see what's wrong. Changes take effect through **Reload Configuration**, without restarting KOReader.
 
 HA2 is deliberately focused on triggering actions and does not read data back from Home Assistant. If you want to display entity states, attributes or templates on your e-reader, V1 is the better fit.
 
